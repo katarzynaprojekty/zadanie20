@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CountryFlagList from '../presentational/flag-list.component';
-import { getCountries, searchCountries } from '../actions/actions-countries';
+import { getCountries, searchCountries, deleteCountry, deleteCountries, searchCapital, searchCurrency, searchLanguage } from '../actions/actions-countries.js';
 import '../country.css';
 
 class CountryFlagContainer extends Component {
@@ -15,6 +15,10 @@ class CountryFlagContainer extends Component {
 
     search(event) {
         this.props.dispatch(searchCountries(event.target.value));
+    }
+
+    deleteCountry(id) {
+        this.props.dispatch(deleteCountry(id));
     }
 
     render() {
