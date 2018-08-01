@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, GET_COUNTRY, SEARCH_COUNTRIES, DELETE_COUNTRY, SET_CONTINTENT  } from '../actions/actions-countries';
+import { GET_COUNTRIES, GET_COUNTRY, SEARCH_COUNTRIES, DELETE_COUNTRY, SET_CONTINTENT, DELETE_COUNTRIES  } from '../actions/actions-countries';
 import countriesData from '../data/countries.json';
 
 const initialState = {
@@ -13,7 +13,9 @@ const countriesReducer = function (state = initialState, action) {
             return Object.assign({}, state, {countries: state.countries});
 
         case GET_COUNTRY:
-            const selectedCountry = state.countries.find(country => country.id == action.id);
+            const selectedCountry = state.countries.find(
+              country => country.id === parseInt(action.id)
+            );
             return Object.assign({}, state, {selectedCountry});
 
         case SEARCH_COUNTRIES:
@@ -21,16 +23,22 @@ const countriesReducer = function (state = initialState, action) {
             return Object.assign({}, state, {visibleCountries: foundCountries});
 
         case DELETE_COUNTRY:
-            const notDeletedCountries = state.countries.filter(country => country.id != action.id);
-            const notDeletedVisibleCountries = state.visibleCountries.filter(country => country.id != action.id);
+            const notDeletedCountries = state.countries.filter(country => country.id !== action.id);
+            const notDeletedVisibleCountries = state.visibleCountries.filter(country => country.id !== action.id);
             return Object.assign({}, state, {countries: notDeletedCountries, visibleCountries: notDeletedVisibleCountries});
 
         case SET_CONTINTENT:
             const continentCountries = state.countries.filter(country => country.continent === action.name);
             return Object.assign({}, state, {visibleCountries: continentCountries});
-    }
+        
+        case DELETE_COUNTRIES:
+            return Object.assign({}, state, {
+              countries: [], visibleCountries: []
+            });
 
-    return state;
+        default:
+            return state;
+    }
 };
 
 export default countriesReducer;

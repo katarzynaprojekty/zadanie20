@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CountryFlagList from '../presentational/flag-list.component';
-import { getCountries, searchCountries, deleteCountry } from '../actions/actions-countries';
+import { getCountries, searchCountries, deleteCountry, deleteCountries } from '../actions/actions-countries';
+import '../country.css';
 
 class CountryFlagContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     componentDidMount() {
         this.props.dispatch(getCountries());
@@ -20,6 +21,9 @@ class CountryFlagContainer extends Component {
    deleteCountry(id) {
         this.props.dispatch(deleteCountry(id));
     }
+    deleteCountries(){
+        this.props.dispatch(deleteCountries());
+    }
 
     render() {
         return (
@@ -28,6 +32,9 @@ class CountryFlagContainer extends Component {
                     <input type="text" onChange={this.search.bind(this)}/>
                 </div>
                 <CountryFlagList countries={this.props.visibleCountries} deleteCountry={this.deleteCountry.bind(this)} />
+                <div className="remove-bar">
+                    <button className="delete-button" onClick={this.deleteCountries.bind(this)}>Remove all</button>
+                </div>
             </div>
         )
     }
