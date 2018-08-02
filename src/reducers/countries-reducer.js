@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, GET_COUNTRY, SEARCH_COUNTRIES, DELETE_COUNTRY, SET_CONTINTENT, DELETE_COUNTRIES  } from '../actions/actions-countries';
+import { GET_COUNTRIES, GET_COUNTRY, SEARCH_COUNTRIES, DELETE_COUNTRY, SET_CONTINENT, DELETE_COUNTRIES  } from '../actions/actions-countries';
 import countriesData from '../data/countries.json';
 
 const initialState = {
@@ -27,7 +27,7 @@ const countriesReducer = function (state = initialState, action) {
             const notDeletedVisibleCountries = state.visibleCountries.filter(country => country.id !== action.id);
             return Object.assign({}, state, {countries: notDeletedCountries, visibleCountries: notDeletedVisibleCountries});
 
-        case SET_CONTINTENT:
+        case SET_CONTINENT:
             const continentCountries = state.countries.filter(country => country.continent === action.name);
             return Object.assign({}, state, {visibleCountries: continentCountries});
         

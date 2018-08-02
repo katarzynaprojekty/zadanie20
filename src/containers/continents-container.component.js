@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setContinent, deleteCountry } from '../actions/actions-countries.js';
-import CountryFlagList from '../presentational/flag-list.component.js';
+import { setContinent, deleteCountry } from '../actions/actions-countries';
+import CountryFlagList from '../presentational/flag-list.component';
 
 class ContinentsContainer extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-    chooseContinent(event){
-          this.props.dispatch(setContinent(event.target.value));
+    chooseContinent(event) {
+        this.props.dispatch(setContinent(event.target.value))
     }
 
     deleteCountry(id) {
-          this.props.dispatch(deleteCountry(id));
+        this.props.dispatch(deleteCountry(id));
     }
 
     componentDidMount() {
-          this.props.dispatch(setContinent('Europe'));
+        this.props.dispatch(setContinent('Europa'));
     }
 
     render() {
-          return(
+        return (
             <div>
-                <select className="select-button" onChange={event => this.chooseContinent(event)}>
-                    <option value="Europe">Europe</option>
-                    <option value="Africa">Africa</option>
+                <select onChange={e => this.chooseContinent(e)}>
+                    <option value="Europa">Europa</option>
+                    <option value="Afryka">Afryka</option>
                 </select>
                 <CountryFlagList countries={this.props.visibleCountries} deleteCountry={this.deleteCountry.bind(this)} />
             </div>
-          )
+        )
     }
 }
 
-const mapStateToProps = function(store) {
-      return {
+const mapStateToProps = function (store) {
+    return {
         visibleCountries: store.countriesReducer.visibleCountries
-      };
+    };
 };
 
-export default connect(mapStateToProps)(ContinentsContainer)
+export default connect(mapStateToProps)(ContinentsContainer);
